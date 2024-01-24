@@ -1,0 +1,20 @@
+Kepada Yth Bapak/Ibu {{.Name}},
+
+Kami menginformasikan bahwa pengajuan jaminan Anda, {{.StatusMessage}}
+
+Nomor Aplikasi :  {{.NoApp}},
+Nomor quotation :  {{.NoQuotation}},
+Nama Proyek :  {{.ProjectName}},
+Tipe Jaminan :  {{.LayananType}},
+Jenis Jaminan :  {{.LayananName}},
+Status :  {{.StatusName}}
+
+Demikian informasi ini kami sampaikan. Kami sangat senang bisa bekerja sama dengan
+perusahaan Anda. Semoga kita bisa terus membangun hubungan baik di masa mendatang.
+
+Jika ada pertanyaan lebih lanjut dapat menghubungi halo@suretybond.co.id
+
+Hormat kami,
+
+Suretybond.co.id
+

@@ -1,0 +1,14 @@
+log/
+tmp/
+ssl/
+.idea/
+docs/db     
+
+note.txt
+.air.toml
+config-dev.yml
+dbml-error.log
+docker-compose.local.yml
+logstash.conf
+*_seeds.*.sql
+Makefile

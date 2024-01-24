@@ -1,0 +1,14 @@
+PERTANYAAN BERHASIL DITERIMA
+
+Kepada Yth Bapak/Ibu {{.Name}},
+
+Terima kasih atas pesan Anda yang telah Kami terima di halaman Hubungi Kami, sebagai berikut:
+
+Tim Kami sedang meninjau pesan yang Anda kirimkan dan dengan segera Kami akan menghubungi Anda. Kami selalu berusaha memberi tanggapan yang memadai terhadap pertanyaan yang Anda sampaikan.
+
+Jika masih ada pertanyaan tambahan, jangan ragu untuk mengirimkan pesan kembali melalui halaman website atau bisa melalui halo@suretybond.co.id
+
+Kami berkomitmen memberikan layanan pelanggan yang unggul, pengalaman yang menyenangkan dan mencarikan solusi yang dibutuhkan oleh Anda.
+
+Hormat kami,
+Suretybond.co.id​

@@ -1,0 +1,8 @@
+Kepada Yth Bapak/Ibu {{.Name}},
+
+Terima kasih atas kepercayaan Anda menjalin kerjasama dengan Kami. Berikut invoice yang perlu dibayarkan untuk Kami dapat segera menindaklanjuti pengajuan jaminan Anda. Mohon untuk menginformasikan bukti penyelesaian pembayaran Anda kepada Agent Kami.
+
+Demikian informasi ini kami sampaikan, atas perhatian Bapak/Ibu kami ucapkan terima kasih.
+
+Hormat kami, 
+Suretybond.co.id

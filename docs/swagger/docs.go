@@ -1,0 +1,1059 @@
+package swagger
+
+import "github.com/swaggo/swag"
+
+const docTemplate = `{
+	"schemes": {{ marshal .Schemes }},
+    "swagger": "2.0",
+    "info": {
+        "description": "{{escape .Description}}",
+        "title": "{{.Title}}",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "Nsrvel",
+            "url": "https://github.com/nsrvel",
+            "email": "putra1business@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "{{.Version}}"
+    },
+    "host": "{{.Host}}",
+    "basePath": "{{.BasePath}}",
+    "paths": {
+        "/news": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "News"
+                ],
+                "summary": "Create News",
+                "parameters": [
+                    {
+                        "type":"string",
+                        "description": "create slug",
+                        "name": "slug",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type":"string",
+                        "description": "create title",
+                        "name": "title",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type":"string",
+                        "description": "create content",
+                        "name": "content",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type":"string",
+                        "description": "create excerpt",
+                        "name": "excerpt",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type":"string",
+                        "description": "create description",
+                        "name": "description",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "file",
+                        "description": "create thumbnail ",
+                        "name": "thumbnail",
+                        "in": "formData",
+                        "required": true                        
+                    },                    
+                    {
+                        "type":"integer",
+                        "description": "create authorId",
+                        "name": "authorId",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type":"integer",
+                        "description": "create publisherId",
+                        "name": "publisherId",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/news.CreateNewsResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/news/id/{newsType}": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "News"
+                ],
+                "summary": "Get News By Id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "get news id type",
+                        "name": "newsType",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/swagger.GetNewsResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/news/all": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "News"
+                ],
+                "summary": "Get All News",
+                "parameters": [
+                    {
+                        "description": "Title",
+                        "in": "query",
+                        "name": "title",
+                        "type": "string",
+                        "required": false
+                    },
+                    {
+                        "description": "Page",
+                        "in": "query",
+                        "name": "page",
+                        "type": "integer",
+                        "required": false
+                    },
+                    {
+                        "description": "PageSize",
+                        "in": "query",
+                        "name": "page_size",
+                        "type": "integer",
+                        "required": false
+                    },
+                    {
+                        "description": "OrderBy",
+                        "in": "query",
+                        "name": "order_by",
+                        "type": "string",
+                        "required": false
+                    },
+                    {
+                        "description": "OrderType",
+                        "in": "query",
+                        "name": "order_type",
+                        "type": "string",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/swagger.GetAllNews"
+                        }
+                    }
+                }
+            }
+        },
+        "/news/": {
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "News"
+                ],
+                "summary": "Get All News",
+                "parameters": [
+                    {
+                        "type":"integer",
+                        "description": "select news id",
+                        "name": "id",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type":"string",
+                        "description": "update slug",
+                        "name": "slug",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type":"string",
+                        "description": "update title",
+                        "name": "title",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type":"string",
+                        "description": "update content",
+                        "name": "content",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type":"string",
+                        "description": "update excerpt",
+                        "name": "excerpt",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type":"string",
+                        "description": "update description",
+                        "name": "description",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "file",
+                        "description": "update thumbnail ",
+                        "name": "thumbnail",
+                        "in": "formData",
+                        "required": true                        
+                    },                    
+                    {
+                        "type":"integer",
+                        "description": "update authorId",
+                        "name": "authorId",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type":"integer",
+                        "description": "update publisherId",
+                        "name": "publisherId",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/swagger.NewsResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/news/id/{typeNews}": {
+            "delete": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "News"
+                ],
+                "summary": "Delete News",
+                "parameters": [
+                    {
+                        "description": "delete news",
+                        "name": "typeNews",
+                        "in": "path",
+                        "required": true                       
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/swagger.NewsResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/cms/news-category/all": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "News Category"
+                ],
+                "summary": "Get List News Category All",
+                "parameters": [                    
+                    {
+                        "description": "Search",
+                        "in": "query",
+                        "name": "search",
+                        "type": "string",
+                        "required": false
+                    },
+                    {
+                        "description": "Page",
+                        "in": "query",
+                        "name": "page",
+                        "type": "integer",
+                        "required": false
+                    },
+                    {
+                        "description": "PageSize",
+                        "in": "query",
+                        "name": "page_size",
+                        "type": "integer",
+                        "required": false
+                    },
+                    {
+                        "description": "OrderBy",
+                        "in": "query",
+                        "name": "order_by",
+                        "type": "string",
+                        "required": false
+                    },
+                    {
+                        "description": "OrderType",
+                        "in": "query",
+                        "name": "order_type",
+                        "type": "string",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/swagger.GetListNewsCategoryAll"
+                    }
+                }
+            }
+        }
+    },
+    "/cms/news-category/id/{id}": {
+        "get": {
+            "consumes": [
+                "application/json"
+            ],
+            "produces": [
+                "application/json"
+            ],
+            "tags": [
+                "News Category"
+            ],
+            "summary": "Get News Category By ID CMS",
+            "parameters": [
+                {
+                    "description": "Input ID",
+                    "in": "path",
+                    "name": "id",
+                    "type": "integer",
+                    "required": true
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                        "$ref": "#/definitions/swagger.GetNewsCategoryByID"
+                    }
+                }
+            }
+        },
+        "delete": {
+            "consumes": [
+                "application/json"
+            ],
+            "produces": [
+                "application/json"
+            ],
+            "tags": [
+                "News Category"
+            ],
+            "summary": "Delete News Category By ID CMS",
+            "parameters": [
+                {
+                    "description": "Input ID",
+                    "in": "path",
+                    "name": "id",
+                    "type": "integer",
+                    "required": true
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                        "$ref": "#/definitions/swagger.UpdateResponse"
+                    }
+                }
+            }
+        }
+    },
+    "/cms/news-category": {
+        "post": {
+            "consumes": [
+                "application/jsong"
+            ],
+            "produces": [
+                "application/json"
+            ],
+            "tags": [
+                "News Category"
+            ],
+            "summary": "Create News Category",
+            "parameters": [
+                {
+                    "description": "create news category request",
+                    "in": "body",
+                    "name": "body",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/newscategory.CreateNewsCategoryRequest"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                        "$ref": "#/definitions/swagger.CreateNewsCategory"
+                    }
+                }
+            }
+        },
+        "put": {
+            "consumes": [
+            "application/json"
+            ],
+            "produces": [
+            "application/json"
+            ],
+            "tags": [
+            "News Category"
+            ],
+            "summary": "Edit News Category",
+            "parameters": [
+                {
+                    "description": "edit news category request",
+                    "in": "body",
+                    "name": "body",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/newscategory.EditNewsCategoryRequest"
+                    }
+                }
+            ],
+            "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/swagger.UpdateResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "db.PaginationRequest": {
+            "type": "object",
+            "properties": {
+                "order_by": {
+                    "type": "string"
+                },
+                "order_type": {
+                    "type": "string"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "size": {
+                    "type": "integer"
+                }
+            }
+        },
+        "db.PaginationResponse": {
+            "type": "object",
+            "properties": {
+                "has_more": {
+                    "type": "boolean"
+                },
+                "order_by": {
+                    "type": "string"
+                },
+                "order_type": {
+                    "type": "string"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "size": {
+                    "type": "integer"
+                },
+                "total_count": {
+                    "type": "integer"
+                },
+                "total_pages": {
+                    "type": "integer"
+                }
+            }
+        },
+        "digitalSystem.Filter": {
+            "type": "object",
+            "properties": {
+                "filter_status": {
+                    "type": "string"
+                },
+                "search": {
+                    "type": "string"
+                }
+            }
+        },
+        "exception.Status": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "news.CreateNewsRequest": {
+            "type": "object",
+            "required": [
+                "slug",
+                "title",
+                "content",
+                "excerpt",
+                "description",
+                "thumbnail_url",
+                "author_id",
+                "publisher_id"
+            ],
+            "properties": {
+                "slug" : {
+                    "type" :"string"
+                },
+                "title" : {
+                    "type" :"string"
+                },
+                "content": {
+                    "type" :"string"
+                },
+                "excerpt" : {
+                    "type" :"string"
+                },
+                "description" : {
+                    "type" :"string"
+                },
+                "thumbnail_url" : {
+                    "type" :"string"
+                },
+                "author_id" : {
+                    "type" :"integer"
+                },
+                "publisher_id" : {
+                    "type" :"integer"
+                }
+            }
+        },
+        "news.CreateNewsResponse" : {
+            "type": "object",
+            "properties": {
+                "slug" : {
+                    "type" :"string"
+                },
+                "title" : {
+                    "type" :"string"
+                },
+                "content": {
+                    "type" :"string"
+                },
+                "excerpt" : {
+                    "type" :"string"
+                }
+            }
+        },
+        "news.UpdateNewsRequest": {
+            "type": "object",
+            "required": [
+                "id",
+                "slug",
+                "title",
+                "content",
+                "excerpt",
+                "description",
+                "thumbnail_url",
+                "author_id",
+                "publisher_id"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "slug" : {
+                    "type" :"string"
+                },
+                "title" : {
+                    "type" :"string"
+                },
+                "content": {
+                    "type" :"string"
+                },
+                "excerpt" : {
+                    "type" :"string"
+                },
+                "description" : {
+                    "type" :"string"
+                },
+                "thumbnail_url" : {
+                    "type" :"string"
+                },
+                "author_id" : {
+                    "type" :"integer"
+                },
+                "publisher_id" : {
+                    "type" :"integer"
+                }
+            }            
+        },
+        "news.GetAllNewsRequest": {
+            "type": "object",
+            "required": [
+                "pagination"
+            ],
+            "properties": {
+                "filter": {
+                    "$ref": "#/definitions/news.Filter"
+                },
+                "pagination": {
+                    "$ref": "#/definitions/db.PaginationRequest"
+                }
+            }
+        },
+        "news.GetAllNewsResponse": {
+            "type": "object",
+            "properties": {
+                "code_types": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/news.NewsList"
+                    }
+                },
+                "paging": {
+                    "$ref": "#/definitions/db.PaginationResponse"
+                }
+            }
+        },
+        "news.Filter": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "news.NewsEntity": {
+            "type": "object",
+            "properties": {
+                "slug" : {
+                    "type" :"string"
+                },
+                "title" : {
+                    "type" :"string"
+                },
+                "content": {
+                    "type" :"string"
+                },
+                "excerpt" : {
+                    "type" :"string"
+                },
+                "description" : {
+                    "type" :"string"
+                },
+                "thumbnail_url" : {
+                    "type" :"string"
+                },
+                "author_id" : {
+                    "type" :"integer"
+                },
+                "publisher_id" : {
+                    "type" :"integer"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "created_by": {
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "updated_by": {
+                    "type": "string"
+                }
+            }
+        },
+        "news.NewsList": {
+            "type": "object",
+            "properties": {
+                "slug" : {
+                    "type" :"string"
+                },
+                "title" : {
+                    "type" :"string"
+                },
+                "content": {
+                    "type" :"string"
+                },
+                "excerpt" : {
+                    "type" :"string"
+                },
+                "thumbnail_url" : {
+                    "type" :"string"
+                }
+            }
+        },
+        "swagger.CreateNewsResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/news.CreateNewsResponse"
+                },
+                "errors": {},
+                "language_code": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "request_id": {
+                    "type": "string"
+                },
+                "status": {
+                    "$ref": "#/definitions/exception.Status"
+                },
+                "time_stamp": {
+                    "type": "string"
+                }
+            }
+        },
+        "swagger.GetAllNews": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/news.GetAllNewsResponse"
+                },
+                "errors": {},                
+                "message": {
+                    "type": "string"
+                },
+                "request_id": {
+                    "type": "string"
+                },
+                "status": {
+                    "$ref": "#/definitions/exception.Status"
+                },
+                "time_stamp": {
+                    "type": "string"
+                }
+            }
+        },
+        "swagger.GetNewsResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/news.NewsEntity"
+                },
+                "errors": {},                
+                "message": {
+                    "type": "string"
+                },
+                "request_id": {
+                    "type": "string"
+                },
+                "status": {
+                    "$ref": "#/definitions/exception.Status"
+                },
+                "time_stamp": {
+                    "type": "string"
+                }
+            }
+        },
+        "swagger.NewsResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "errors": {},                
+                "message": {
+                    "type": "string"
+                },
+                "request_id": {
+                    "type": "string"
+                },
+                "status": {
+                    "$ref": "#/definitions/exception.Status"
+                },
+                "time_stamp": {
+                    "type": "string"
+                }
+            }
+        },
+        "news.GetNewsIdResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/news.NewsEntity"
+                },
+                "errors": {},            
+                "message": {
+                    "type": "string"
+                },
+                "request_id": {
+                    "type": "string"
+                },
+                "status": {
+                    "$ref": "#/definitions/exception.Status"
+                },
+                "time_stamp": {
+                    "type": "string"
+                }
+            }
+        },
+        "NewsCategory": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "created_by": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_by": {
+                    "type": "string"
+                }
+            }
+        },
+        "NewsCategoryList": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "newscategory.GetListNewsCategoryAllResponse": {
+            "type": "object",
+            "properties": {
+                "quotation": {
+                    "type": "array",
+                    "items": {
+                    "$ref": "#/definitions/NewsCategoryList"
+                    }
+                },
+                "page_info": {
+                    "$ref": "#/definitions/db.PaginationResponse"
+                }
+            }
+        },
+        "newscategory.CreateNewsCategoryRequest": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "title"
+            ]
+        },
+        "newscategory.CreateNewsCategoryResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "newscategory.EditNewsCategoryRequest": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "title": {
+                    "type": "string"
+                }
+            },
+            "required": [
+              "id",
+              "title"
+            ]
+        },
+        "swagger.UpdateResponse": {
+            "type": "object",
+            "properties": {
+                "errors": {},                
+                "message": {
+                    "type": "string"
+                },
+                "request_id": {
+                    "type": "string"
+                },
+                "status": {
+                    "$ref": "#/definitions/exception.Status"
+                },
+                "time_stamp": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "swagger.GetListNewsCategoryAll": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/newscategory.GetListNewsCategoryAllResponse"
+                },
+                "errors": {},                
+                "message": {
+                    "type": "string"
+                },
+                "request_id": {
+                    "type": "string"
+                },
+                "status": {
+                    "$ref": "#/definitions/exception.Status"
+                },
+                "time_stamp": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "swagger.GetNewsCategoryByID": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/NewsCategory"
+                },
+                "errors": {},                
+                "message": {
+                    "type": "string"
+                },
+                "request_id": {
+                    "type": "string"
+                },
+                "status": {
+                    "$ref": "#/definitions/exception.Status"
+                },
+                    "time_stamp": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "swagger.CreateNewsCategory": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/newscategory.CreateNewsCategoryResponse"
+                },
+                "errors": {},            
+                "message": {
+                    "type": "string"
+                },
+                "request_id": {
+                    "type": "string"
+                },
+                "status": {
+                    "$ref": "#/definitions/exception.Status"
+                },
+                "time_stamp": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        }
+    }
+}`
+
+// SwaggerInfo holds exported Swagger Info so clients can modify it
+var SwaggerInfo = &swag.Spec{
+	Version:          "1.0.0",
+	Host:             "localhost:3000",
+	BasePath:         "",
+	Schemes:          []string{"http"},
+	Title:            "Company Profile",
+	Description:      "company profile API",
+	InfoInstanceName: "swagger",
+	SwaggerTemplate:  docTemplate,
+}
+
+func init() {
+	swag.Register(SwaggerInfo.InstanceName(), SwaggerInfo)
+}

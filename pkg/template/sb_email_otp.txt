@@ -1,0 +1,5 @@
+Berikut adalah kode verifikasi email yang dapat digunakan untuk {{.Utility}} di {{.Site}}
+
+{{.OTP}}
+
+Kode hanya berlaku selama {{.Seconds}} detik. Lakukan verifikasi kembali untuk mendapatkan kode baru
