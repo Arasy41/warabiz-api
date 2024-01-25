@@ -257,6 +257,14 @@ func (u WarabizUsecase) UpdateWarabiz(ctx context.Context, exc exception.Excepti
 	// //* Get editor
 	// editor := locals.GetCreator(ctx)
 
+	//* Repo Update Warabiz
+	params := make([]interface{}, 0)
+	params = append(params, req.CategoryId, req.WaralabaName, req.Prize, req.Contact, req.BrochureLink, req.Since, req.OutletTotal, req.LicenseDuration, "admin", req.Id)
+	err = u.repo.UpdateWarabiz(ctx, selectedDB, params...)
+	if err != nil {
+		return exc.NewRestError(http.StatusInternalServerError, "failed to update warabiz data", err.Error())
+	}
+
 	//* Create success response
 	return nil
 }

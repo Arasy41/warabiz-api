@@ -27,14 +27,14 @@ const (
 	`
 	qUpdateWarabiz = `
 	UPDATE waralaba
-	SET slug = ?,
-		title = ?,
-		content = ?,
-		excerpt = ?,
-		description = ?,
-		thumbnail_url = ?,
-		author_id = ?,
-		publisher_id = ?,
+	SET category_id = ?, 
+		waralaba_name = ?, 
+		prize = ?, 
+		contact = ?, 
+		brochure_link = ?, 
+		since = ?, 
+		outlet_total = ?, 
+		license_duration = ?, 
 		updated_by = ?,
 		updated_at = timezone('utc', now())
 	WHERE id = ?
