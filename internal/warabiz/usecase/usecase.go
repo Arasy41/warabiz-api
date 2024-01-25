@@ -153,7 +153,10 @@ func (u WarabizUsecase) GetWarabizById(ctx context.Context, exc exception.Except
 
 	//* Return success response
 
-	warabizDetail := &warabiz.WarabizDetailResponse{}
+	warabizDetail := &warabiz.WarabizDetailResponse{
+		Warabiz:      []warabiz.Warabiz{*data},
+		CategoryName: data.CategoryName,
+	}
 
 	return warabizDetail, nil
 }
