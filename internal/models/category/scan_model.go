@@ -9,7 +9,7 @@ import (
 
 type Category struct {
 	Id           int64      `json:"id"`
-	CategoryName int64      `json:"category_name"`
+	CategoryName string     `json:"category_name"`
 	CreatedBy    string     `json:"created_by"`
 	CreatedAt    time.Time  `json:"created_at"`
 	UpdatedAt    *time.Time `json:"updated_at"`

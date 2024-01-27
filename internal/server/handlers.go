@@ -5,6 +5,7 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 
+	waralabacategory "warabiz/api/internal/WaralabaCategory"
 	"warabiz/api/internal/middleware"
 	"warabiz/api/internal/system"
 	"warabiz/api/internal/warabiz"
@@ -15,6 +16,7 @@ func (s *Server) MapHandlers(app *fiber.App) error {
 	//* Initial Repoconf
 	System := system.NewSystem(s.cfg, s.logger)
 	Warabiz := warabiz.NewWarabiz(s.cfg, s.dbList, s.logger)
+	Category := waralabacategory.NewCategory(s.cfg, s.dbList, s.logger)
 
 	//* Set middleware constructor
 	mw := middleware.NewMiddlewareManager(s.cfg, s.dbList, s.logger)
@@ -36,6 +38,7 @@ func (s *Server) MapHandlers(app *fiber.App) error {
 
 	//* Map routes
 	warabiz.NewRoutes(app, Warabiz.Handler)
+	waralabacategory.NewRoutes(app, Category.Handler)
 
 	//* Not found
 	app.All("*", System.Handler.NotFound)
