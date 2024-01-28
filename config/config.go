@@ -97,11 +97,12 @@ type CookiesAccount struct {
 }
 
 type ConnectionAccount struct {
-	Warabiz  DatabaseAccount
-	Redis    RedisAccount
-	MongoDB  MongoDBAccount
-	SMTP     SMTPAccount
-	RabbitMQ RabbitMQAccount
+	Warabiz    DatabaseAccount
+	Redis      RedisAccount
+	MongoDB    MongoDBAccount
+	SMTP       SMTPAccount
+	RabbitMQ   RabbitMQAccount
+	Cloudinary CloudinaryConf
 }
 
 type DatabaseAccount struct {
@@ -142,6 +143,12 @@ type RabbitMQAccount struct {
 	Port     int
 	Username string
 	Password string
+}
+
+type CloudinaryConf struct {
+	CloudName string
+	APIKey    int
+	APISecret string
 }
 
 //=================================================================================================================

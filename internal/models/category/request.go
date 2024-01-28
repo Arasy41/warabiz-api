@@ -1,7 +1,7 @@
 package category
 
 type CreateCategoryRequest struct {
-	CategoryName string `json:"category_name"`
+	CategoryName string `json:"category_name" validate:"required"`
 }
 
 type GetAllCategoryRequest struct {
@@ -14,6 +14,6 @@ type GetAllCategoryRequest struct {
 }
 
 type UpdateCategoryRequest struct {
-	Id           int64  `json:"id"`
-	CategoryName string `json:"category_name"`
+	Id           int64  `json:"id" validate:"required"`
+	CategoryName string `json:"category_name" validate:"required"`
 }

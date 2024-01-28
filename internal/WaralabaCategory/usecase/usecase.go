@@ -133,7 +133,7 @@ func (u CategoryUsecase) GetAllCategory(ctx context.Context, exc exception.Excep
 	}
 
 	//* Repo get all category
-	newcategories, pageInfo, err := u.repo.GetAllCategory(ctx, selectedDB, req.Search, &db.PageData{
+	categories, pageInfo, err := u.repo.GetAllCategory(ctx, selectedDB, req.Search, &db.PageData{
 		Page:      req.Page,
 		Size:      req.PageSize,
 		OrderBy:   req.OrderBy,
@@ -142,15 +142,15 @@ func (u CategoryUsecase) GetAllCategory(ctx context.Context, exc exception.Excep
 	if err != nil {
 		return nil, exc.NewRestError(http.StatusInternalServerError, "failed to find category data", err.Error())
 	}
-	if newcategories != nil {
-		if len(*newcategories) == 0 {
+	if categories != nil {
+		if len(*categories) == 0 {
 			exc.SetLog("warning_msg", "Search completed successfully. No matching data found based on the search criteria provided")
 		}
 	}
 
 	//* Create success response
 	return &category.GetAllCategoryResponse{
-		Category:   *newcategories,
+		Category:   *categories,
 		Pagination: pageInfo,
 	}, nil
 }

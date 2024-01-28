@@ -2,7 +2,8 @@ log/
 tmp/
 ssl/
 .idea/
-docs/db     
+docs/db
+.env
 
 note.txt
 .air.toml
